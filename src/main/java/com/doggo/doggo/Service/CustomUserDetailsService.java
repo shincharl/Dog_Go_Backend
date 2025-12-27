@@ -23,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         Member member = loginRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자 없음"));
 
+        System.out.println("User role: " + member.getRole().name());
         // 권한을 GrantedAuthority로 변환
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(member.getRole().name()));
 

@@ -16,6 +16,10 @@ repositories {
 	mavenCentral()
 }
 
+bootJar {
+	archiveFileName = 'doggo.jar'
+}
+
 dependencies {
 
 	runtimeOnly 'org.postgresql:postgresql'

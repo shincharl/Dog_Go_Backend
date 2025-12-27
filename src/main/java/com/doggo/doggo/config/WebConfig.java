@@ -7,16 +7,23 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer{
+public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public WebMvcConfigurer corsConfigurer(){
+    public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+                // API CORS
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("https://dog-go-frontend-roan.vercel.app")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowCredentials(true);
+
+                // 업로드 이미지 CORS
+                registry.addMapping("/uploads/**")
+                        .allowedOrigins("https://dog-go-frontend-roan.vercel.app")
+                        .allowedMethods("GET")
                         .allowCredentials(true);
             }
         };
@@ -24,6 +31,7 @@ public class WebConfig implements WebMvcConfigurer{
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Railway 배포 경로 기준
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:/home/railway/app/uploads/");
     }

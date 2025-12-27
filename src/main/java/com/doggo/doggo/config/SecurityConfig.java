@@ -50,7 +50,7 @@ public class SecurityConfig {
                                                     "/api/reservation/**",
                                                     "/api/qna",
                                                     "/api/tracking/**").permitAll()
-                        .requestMatchers("/api/masterpage/**").permitAll()      // 관리자 API 허용
+                        .requestMatchers("/api/masterpage/**").hasRole("ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -68,12 +68,13 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
-                "http://localhost:3000",
                 "https://dog-go-frontend-roan.vercel.app"
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(List.of("*"));
+
+        config.addExposedHeader("Set-Cookie");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

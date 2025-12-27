@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://dog-go-frontend-roan.vercel.app")
 @RestController
 @RequestMapping("/api")
 public class ReservationController {

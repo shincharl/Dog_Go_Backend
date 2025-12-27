@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://dog-go-frontend-roan.vercel.app")
 @RequiredArgsConstructor
 @RequestMapping("/api/tracking")
 public class TrackingController {

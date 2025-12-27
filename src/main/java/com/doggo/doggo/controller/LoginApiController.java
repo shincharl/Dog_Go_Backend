@@ -18,7 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true") //리액트가 돌아가는 주소
+@CrossOrigin(origins = "https://dog-go-frontend-roan.vercel.app", allowCredentials = "true") //리액트가 돌아가는 주소
 public class LoginApiController {
 
     // 1. 서비스 객체 생성자 주입

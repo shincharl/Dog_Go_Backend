@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://dog-go-frontend-roan.vercel.app")
 @RequestMapping("/api")
 public class MasterBoardController {
 

@@ -73,8 +73,7 @@ public class SecurityConfig {
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowCredentials(true);
         config.setAllowedHeaders(List.of("*"));
-
-        config.addExposedHeader("Set-Cookie");
+        config.addExposedHeader("Set-Cookie"); // 세션 쿠키 노출
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

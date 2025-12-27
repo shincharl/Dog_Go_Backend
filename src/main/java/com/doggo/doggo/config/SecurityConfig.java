@@ -52,7 +52,7 @@ public class SecurityConfig {
 
                                                     "/api/tracking/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
-                        .requestMatchers("/api/masterpage/**").permitAll()
+                        .requestMatchers("/api/masterpage/**").hasRole("ADMIN")
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

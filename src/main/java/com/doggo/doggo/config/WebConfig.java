@@ -33,6 +33,6 @@ public class WebConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Railway 배포 경로 기준
         registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:/home/railway/app/uploads/");
+                .addResourceLocations("file:/app/uploads/");
     }
 }

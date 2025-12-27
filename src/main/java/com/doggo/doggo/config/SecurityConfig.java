@@ -43,7 +43,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // H2 콘솔 허용
-                        .requestMatchers("/api/login", "/api/signup", "/api/reservation", "/api/allReservation", "/api/trackinglist", "/api/reservation/**", "/api/qna", "/api/tracking/**").permitAll()
+                        .requestMatchers("/api/login",
+                                                    "/api/signup",
+                                                    "/api/allReservation",
+                                                    "/api/trackinglist",
+                                                    "/api/reservation/**",
+                                                    "/api/qna",
+                                                    "/api/tracking/**").permitAll()
                         .requestMatchers("/api/masterpage/**").hasRole("ADMIN")      // 관리자 API 허용
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

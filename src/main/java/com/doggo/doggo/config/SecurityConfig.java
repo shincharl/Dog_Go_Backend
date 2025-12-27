@@ -4,6 +4,7 @@ import com.doggo.doggo.Service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,6 +41,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // iframe 허용
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // H2 콘솔 허용
                         .requestMatchers("/api/login", "/api/signup", "/api/reservation", "/api/allReservation", "/api/trackinglist", "/api/reservation/**", "/api/qna", "/api/tracking/**").permitAll()
                         .requestMatchers("/api/masterpage/**").hasRole("ADMIN")      // 관리자 API 허용

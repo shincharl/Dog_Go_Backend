@@ -49,7 +49,9 @@ public class SecurityConfig {
                                                     "/api/trackinglist",
                                                     "/api/reservation/**",
                                                     "/api/qna",
+
                                                     "/api/tracking/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/masterpage/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()

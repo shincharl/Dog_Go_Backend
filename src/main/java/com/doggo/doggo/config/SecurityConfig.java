@@ -50,7 +50,7 @@ public class SecurityConfig {
                                                     "/api/reservation/**",
                                                     "/api/qna",
                                                     "/api/tracking/**").permitAll()
-                        .requestMatchers("/api/masterpage/**").hasRole("ADMIN")      // 관리자 API 허용
+                        .requestMatchers("/api/masterpage/**").permitAll()      // 관리자 API 허용
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

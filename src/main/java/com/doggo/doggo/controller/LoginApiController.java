@@ -55,9 +55,12 @@ public class LoginApiController {
 
             securityContextRepository.saveContext(context, request, response);
 
+            Member member = loginService.login(requestDto);
+
             return ResponseEntity.ok(Map.of(
-                    "email", authentication.getName(),
-                    "role", authentication.getAuthorities()
+                    "email", member.getEmail(),
+                    "name", member.getName(),
+                    "role", member.getRole()
             ));
         }catch (Exception e){
             return ResponseEntity

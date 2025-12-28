@@ -58,8 +58,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form.disable())
                 .httpBasic(httpBasic -> httpBasic.disable())
-                .userDetailsService(customUserDetailsService)  // UserDetailsService 연결
-                .sessionManagement(session -> session.maximumSessions(1));
+                .userDetailsService(customUserDetailsService); // UserDetailsService 연결
 
         return http.build();
     }

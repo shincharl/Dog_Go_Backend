@@ -6,13 +6,21 @@ import com.doggo.doggo.dto.LoginResponseDto;
 import com.doggo.doggo.dto.RegisterDTO;
 import com.doggo.doggo.dto.RegisterResponseDTO;
 import com.doggo.doggo.entity.Member;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.sasl.AuthenticationException;
 import java.util.Map;
 
 @RestController
@@ -23,17 +31,48 @@ public class LoginApiController {
 
     // 1. 서비스 객체 생성자 주입
     private final LoginService loginService;
+    private final AuthenticationManager authenticationManager;
 
     // 2. 서비스에 데이터 처리 요청 및 반환 (로그인)
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpSession session){
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto requestDto, HttpServletRequest request){
         try {
+
+            UsernamePasswordAuthenticationToken authToken =
+                    new UsernamePasswordAuthenticationToken(
+                            requestDto.getEmail(),
+                            requestDto.getPassword()
+                    );
+
+            Authentication authentication = authenticationManager.authenticate(authToken);
+            
+            // SecurityContext에 저장
+            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+            securityContext.setAuthentication(authentication);
+            SecurityContextHolder.setContext(securityContext);
+
+            // 세션에 SecurityContext 저장
+            request.getSession(true).setAttribute(
+                    HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                    securityContext
+            );
+
             Member member = loginService.login(requestDto);
-            session.setAttribute("loginMember", member);
-            return ResponseEntity.ok((Map.of("email", member.getEmail(), "name", member.getName(), "role", member.getRole())));
-        }catch (RuntimeException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+
+            return ResponseEntity.ok(
+                    Map.of(
+                            "email", member.getEmail(),
+                            "name", member.getName(),
+                            "role", member.getRole()
+                    )
+            );
+
+        }catch (Exception e){
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body("이메일 또는 비밀번호 오류");
         }
+
     }
 
     @PostMapping("/logout")

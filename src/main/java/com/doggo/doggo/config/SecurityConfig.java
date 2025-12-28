@@ -66,7 +66,6 @@ public class SecurityConfig {
                                                     "/api/trackinglist",
                                                     "/api/reservation/**",
                                                     "/api/qna",
-
                                                     "/api/tracking/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers("/api/masterpage/**").hasRole("ADMIN")

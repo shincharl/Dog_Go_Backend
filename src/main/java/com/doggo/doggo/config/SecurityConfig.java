@@ -51,6 +51,7 @@ public class SecurityConfig {
 
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                                .sessionFixation().none() // 세션 고정 보호를 끔
                         )
 
                 .securityContext(securityContext ->

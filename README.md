@@ -291,5 +291,6 @@ BaseEntity (공통 생성/수정 시간 관리)
 
 ### 배포 주소
 
+- 관리자 코드 : SECRET_ADMIN_CODE
 - Frontend: https://dog-go-frontend-roan.vercel.app
 - Backend : Railway 배포
